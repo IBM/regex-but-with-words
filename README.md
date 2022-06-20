@@ -181,7 +181,7 @@ exp
 exp
   .look
   .behind("egg")
-  .literal("plan")
+  .literal("plant")
   .done("g")
 
 // Matches
