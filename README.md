@@ -88,7 +88,7 @@ Name                 | Matches                                                  
 `.notWord()`*        | Any character other than A-z, digits 0-9, and underscores                                                              | `\W` 
 `.digit()`*          | digits 0-9                                                                                                             | `\d` 
 `.notWord()`*        | Any character other digits 0-9                                                                                         | `\D` 
-`.any`*              | Any character                                                                                                          | `.`
+`.any()`*            | Any character                                                                                                          | `.`
 `.whitespace()`*     | Any whitespace character (spaces, tabs, newlines)                                                                      | `\s`
 `.notWhitespace()`*  | Any non-whitespace character (spaces, tabs, newlines)                                                                  | `\S`
 `.wordBoundary()`    | Position between word character and a non-word character                                                               | `\b`
