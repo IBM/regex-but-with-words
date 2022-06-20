@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-.nyc_output
-=======
 node_modules/
 *.x
 .nyc_output
->>>>>>> 3183a49ba4fc3c67e5992bf9ba0e597feaa11926
