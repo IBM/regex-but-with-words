@@ -350,6 +350,11 @@ describe("regexButWithWords", () => {
         let actualData = exp.negatedSet("]?-word").done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
+      it("should return a negated character set and escape characters", () => {
+        let expectedData = /[^A-z-]/g;
+        let actualData = exp.negatedSet("A-z-").done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
     });
     describe("Look Ahead / Behind", () => {
       describe("look", () => {

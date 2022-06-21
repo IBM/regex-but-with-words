@@ -3,11 +3,6 @@ const { wordify, spaceItOut, toString } = require("../lib/verbose");
 const verbose = require("../lib/verbose");
 
 describe("verbose", () => {
-  describe("rangeTokenName", () => {
-    it("should return a named version of token", () => {
-      assert.deepEqual(verbose.rangeTokenName("\\d"), ".digit(");
-    });
-  });
   describe("wordify", () => {
     it("should turn a simple regular expression into a function", () => {
       let actualData = wordify(/\d/g);
