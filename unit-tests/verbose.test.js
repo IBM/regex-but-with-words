@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { wordify, spaceItOut } = require("../lib/verbose");
+const { wordify, spaceItOut, toString } = require("../lib/verbose");
 const verbose = require("../lib/verbose");
 
 describe("verbose", () => {
@@ -104,6 +104,11 @@ describe("verbose", () => {
       let expectedData = `exp.literal("=\\"").whitespace().done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
+    it("should return a literal containing an open parenthesis", () => {
+      let actualData = wordify(/hello\(/g);
+      let expectedData = `exp.literal("hello(").done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
     it("should return set to have a function if it contains characters other than string", () => {
       let actualData = wordify(/hello[sh\s\w]/g);
       let expectedData = `exp.literal("hello").set((exp) => { exp.literal("sh").whitespace().word() }).done("g")`;
@@ -111,13 +116,13 @@ describe("verbose", () => {
     });
     it("should return newline and tab expressions", () => {
       let actualData = wordify(/\n\t/g);
-      let expectedData = `exp.newline().tab().done("g")`
-      assert.deepEqual(actualData, expectedData, "it should return data");   
-    })
+      let expectedData = `exp.newline().tab().done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
   });
   describe("spaceItOut", () => {
     it("should add indentation and spaces to output", () => {
-      let expectedData=`exp
+      let expectedData = `exp
   .stringBegin()
   .literal("-")
   .literal("-")
@@ -141,9 +146,22 @@ describe("verbose", () => {
   })
   .anyNumber()
   .stringEnd()
-  .done("g")`
-      let actualData = spaceItOut(`exp.stringBegin().literal("-").literal("-").lazy().set("a-z-").oneOrMore().whitespace().notWhitespace().oneOrMore().group((exp) => { exp.whitespace().literal("-").literal("-").lazy().set("a-z-").oneOrMore().whitespace().notWhitespace().oneOrMore() }).anyNumber().stringEnd().done("g")`)
-      assert.deepEqual(actualData, expectedData, "it should return formatted data")
+  .done("g")`;
+      let actualData = spaceItOut(
+        `exp.stringBegin().literal("-").literal("-").lazy().set("a-z-").oneOrMore().whitespace().notWhitespace().oneOrMore().group((exp) => { exp.whitespace().literal("-").literal("-").lazy().set("a-z-").oneOrMore().whitespace().notWhitespace().oneOrMore() }).anyNumber().stringEnd().done("g")`
+      );
+      assert.deepEqual(
+        actualData,
+        expectedData,
+        "it should return formatted data"
+      );
+    });
+  });
+  describe("toString", () => {
+    it("should return formatted text from raw regexp", () => {
+      let expectedData = `exp\n  .digit()\n  .done("g")`
+      let actualData = toString(/\d/g)
+      assert.deepEqual(actualData, expectedData, "it should return correct data")
     })
   })
 });

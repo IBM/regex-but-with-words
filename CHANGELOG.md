@@ -1,3 +1,7 @@
 # Changelog
 
+## 6/21/2022 v 1.0.1
+
+- Fixed issue where some escaped characters were causing incorrect expressions.
+
 All notable changes to this project will be documented in this file.
