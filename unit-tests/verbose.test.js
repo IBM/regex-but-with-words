@@ -114,6 +114,11 @@ describe("verbose", () => {
       let expectedData = `exp.newline().tab().done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
+    it("should return a group with two escaped slash string literals", () => {
+      let actualData = wordify(/(\\\\)/g);
+      let expectedData = `exp.group((exp) => { exp.literal("\\\\\\\\") }).done("g")`
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    })
   });
   describe("spaceItOut", () => {
     it("should add indentation and spaces to output", () => {
