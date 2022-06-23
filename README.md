@@ -102,6 +102,7 @@ Name                 | Matches                                                  
 `.anyNumber()`       | Matches any number of the preceding function call including 0 (ex. `.digit().anyNumber()` will match 0 or more digits) | `*`
 `.lazy()`            | Matches 0 or one of the preceding function (ex. `.word().lazy()` will match 0 or 1 word character)                     | `?`
 `.or()`              | Logical or between two values (ex. `.word().or().digit()` will match one word or digit character)                      | `|`
+`.backslash()` *     | Matches a literal backslash, this function is here due to inconsitancies in string literal `\` requiring an escape sequence | `\\`
 
 **Methods marked with a `*` can accept up to two parameters `min`, and `max`.**
 - If only `min` is provided, it will match exactly that number of the preceding call

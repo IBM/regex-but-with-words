@@ -116,7 +116,12 @@ describe("verbose", () => {
     });
     it("should return a group with two escaped slash string literals", () => {
       let actualData = wordify(/(\\\\)/g);
-      let expectedData = `exp.group((exp) => { exp.literal("\\\\\\\\") }).done("g")`
+      let expectedData = `exp.group((exp) => { exp.backslash().backslash() }).done("g")`
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    })
+    it("should return backslash function with unescaped backslash literal", () => {
+      let actualData = wordify(/\\/g);
+      let expectedData = `exp.backslash().done("g")`
       assert.deepEqual(actualData, expectedData, "it should return data");
     })
   });

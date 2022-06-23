@@ -53,6 +53,18 @@ describe("regexButWithWords", () => {
       });
     });
 
+    describe("backslash", () => {
+      it("should add word to expression", () => {
+        let actualData = exp.backslash().exp;
+        let expectedData = "\\\\";
+        assert.deepEqual(
+          actualData,
+          expectedData,
+          "it should return correct data and chain"
+        );
+      });
+    });
+
     describe("notWord", () => {
       it("should add notWord to expression", () => {
         let actualData = exp.notWord().exp;
