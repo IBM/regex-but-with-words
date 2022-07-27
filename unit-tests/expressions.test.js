@@ -362,6 +362,11 @@ describe("regexButWithWords", () => {
         let actualData = exp.negatedSet("]?-word").done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
+      it("should return a negated character set with only a single escaped character", () => {
+        let expectedData = /[^\]]/g;
+        let actualData = exp.negatedSet("]").done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
       it("should return a negated character set and escape characters", () => {
         let expectedData = /[^A-z-]/g;
         let actualData = exp.negatedSet("A-z-").done("g");
