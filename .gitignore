@@ -2,3 +2,4 @@ node_modules/
 *.x
 .nyc_output
 dev.*
+docs/

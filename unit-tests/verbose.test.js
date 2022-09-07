@@ -34,6 +34,16 @@ describe("verbose", () => {
       let expectedData = 'exp.word().lazy().done("g")';
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
+    it("should return a word boundary", () => {
+      let actualData = wordify(/\b/g);
+      let expectedData = 'exp.wordBoundary().done("g")';
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
+    it("should return a negated word boundary", () => {
+      let actualData = wordify(/\B/g);
+      let expectedData = 'exp.notWordBoundary().done("g")';
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
     it("should return a string literal with an asterisk", () => {
       let actualData = wordify(/\w*/g);
       let expectedData = 'exp.word().anyNumber().done("g")';
@@ -42,6 +52,21 @@ describe("verbose", () => {
     it("should return a capturing group", () => {
       let actualData = wordify(/(word)/g);
       let expectedData = `exp.group((exp) => { exp.literal("word") }).done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
+    it("should return a quantified capturing group", () => {
+      let actualData = wordify(/(word){3}/g);
+      let expectedData = `exp.group((exp) => { exp.literal("word") }, 3).done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
+    it("should return a quantified capturing group with max", () => {
+      let actualData = wordify(/(word){3,4}/g);
+      let expectedData = `exp.group((exp) => { exp.literal("word") }, 3, 4).done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
+    it("should return a quantified capturing group with max in the middle of expression", () => {
+      let actualData = wordify(/(word){3,4}word/g);
+      let expectedData = `exp.group((exp) => { exp.literal("word") }, 3, 4).literal("word").done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
     it("should return a capturing group within a capturing group", () => {
@@ -123,7 +148,7 @@ describe("verbose", () => {
       let actualData = wordify(/\\/g);
       let expectedData = `exp.backslash().done("g")`
       assert.deepEqual(actualData, expectedData, "it should return data");
-    })
+    });
   });
   describe("spaceItOut", () => {
     it("should add indentation and spaces to output", () => {

@@ -299,6 +299,28 @@ describe("regexButWithWords", () => {
         let expectedData = /(word)/g;
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
+      it("should return a quantified group", () => {
+        let actualData = exp
+          .group((exp) => {
+            exp.literal("word");
+          }, 3)
+          .done("g");
+        let expectedData = /(word){3}/g;
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a quantified group with min and max", () => {
+        let actualData = exp
+          .group(
+            (exp) => {
+              exp.literal("word");
+            },
+            3,
+            4
+          )
+          .done("g");
+        let expectedData = /(word){3,4}/g;
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
       it("should return a capturing group within a capturing group", () => {
         let expectedData = /(dr(i|a)nk)/g;
         let actualData = exp
@@ -336,6 +358,11 @@ describe("regexButWithWords", () => {
             exp.whitespace().newline();
           })
           .done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a correct range", () => {
+        let expectedData = /[1-5]/g;
+        let actualData = exp.set("1-5").done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
     });
@@ -433,9 +460,9 @@ describe("regexButWithWords", () => {
   describe("Assorted Test Cases", () => {
     beforeEach(() => (exp = new regexButWithWords()));
     it("should match character before dollar sign", () => {
-      let expectedData = /.*(?=\$)/g
-      let actualData = exp.any().anyNumber().look.ahead("$").done("g")
+      let expectedData = /.*(?=\$)/g;
+      let actualData = exp.any().anyNumber().look.ahead("$").done("g");
       assert.deepEqual(actualData, expectedData, "it should return data");
-    })
-  })
+    });
+  });
 });
