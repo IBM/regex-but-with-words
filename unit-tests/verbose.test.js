@@ -1,6 +1,5 @@
 const { assert } = require("chai");
 const { wordify, spaceItOut, toString } = require("../lib/verbose");
-const verbose = require("../lib/verbose");
 
 describe("verbose", () => {
   describe("wordify", () => {
@@ -141,12 +140,12 @@ describe("verbose", () => {
     });
     it("should return a group with two escaped slash string literals", () => {
       let actualData = wordify(/(\\\\)/g);
-      let expectedData = `exp.group((exp) => { exp.backslash().backslash() }).done("g")`
+      let expectedData = `exp.group((exp) => { exp.backslash().backslash() }).done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
-    })
+    });
     it("should return backslash function with unescaped backslash literal", () => {
       let actualData = wordify(/\\/g);
-      let expectedData = `exp.backslash().done("g")`
+      let expectedData = `exp.backslash().done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
   });
@@ -186,12 +185,93 @@ describe("verbose", () => {
         "it should return formatted data"
       );
     });
+    it("should return the cidr block regex", () => {
+      let cidrRegex =
+        /^(((2[1-5]\d)|(1\d\d)|\d\d|\d)\.){3}((2[1-5]\d)|(1\d\d)|\d\d|\d)((\/3[0-2])|(\/[12]\d)|\/\d|\b)$/g;
+      let wordifiedCidrRegex = wordify(cidrRegex);
+      let expectedData = `exp
+  .stringBegin()
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp
+          .group((exp) => {
+            exp
+              .literal("2")
+              .set("1-5")
+              .digit()
+          })
+          .or()
+          .group((exp) => {
+            exp
+              .literal("1")
+              .digit()
+              .digit()
+          })
+          .or()
+          .digit()
+          .digit()
+          .or()
+          .digit()
+      })
+      .literal(".")
+  }, 3)
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp
+          .literal("2")
+          .set("1-5")
+          .digit()
+      })
+      .or()
+      .group((exp) => {
+        exp
+          .literal("1")
+          .digit()
+          .digit()
+      })
+      .or()
+      .digit()
+      .digit()
+      .or()
+      .digit()
+  })
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp
+          .literal("/3")
+          .set("0-2")
+      })
+      .or()
+      .group((exp) => {
+        exp
+          .literal("/")
+          .set("12")
+          .digit()
+      })
+      .or()
+      .literal("/")
+      .digit()
+      .or()
+      .wordBoundary()
+  })
+  .stringEnd()
+  .done("g")`;
+      let actualData = spaceItOut(wordifiedCidrRegex);
+      assert.deepEqual(actualData, expectedData, "it should match");
+    });
   });
   describe("toString", () => {
     it("should return formatted text from raw regexp", () => {
-      let expectedData = `exp\n  .digit()\n  .done("g")`
-      let actualData = toString(/\d/g)
-      assert.deepEqual(actualData, expectedData, "it should return correct data")
-    })
-  })
+      let expectedData = `exp\n  .digit()\n  .done("g")`;
+      let actualData = toString(/\d/g);
+      assert.deepEqual(
+        actualData,
+        expectedData,
+        "it should return correct data"
+      );
+    });
+  });
 });

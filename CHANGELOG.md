@@ -1,5 +1,9 @@
 # Changelog
 
+## v 1.1.1
+
+- Fixed an issue where regexToWords added an invalid `.` to the beinning of a quantified group expression and also invalid spacing.
+
 ## v 1.1.0
 
 - Fixed an issue causing ranges with numbers other than 0-9 to have an unintended escaped hyphen
