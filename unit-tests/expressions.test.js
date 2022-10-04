@@ -417,7 +417,7 @@ describe("regexButWithWords", () => {
         });
         describe("behind", () => {
           it("should return a look.behind", () => {
-            let expectedData = /(?<=mite)frog/g;
+            let expectedData = /(?:mite)frog/g;
             let actualData = exp.look
               .behind((exp) => {
                 exp.literal("mite");
