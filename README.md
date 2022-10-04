@@ -153,9 +153,8 @@ Non-capturing lookaround groups. Each method can be chained with any method othe
 Name                              | Matches                                                    | Regex
 ----------------------------------|------------------------------------------------------------|-------
 `look.ahead(regexGroup)`          | A group after the expression without including the result  | `(?=)`
-`look.behind(regexGroup)`         | A group before the expression without including the result | `(?<=)`
-`negativeLook.ahead(regexGroup)`  | A group that cannot match after the main expression        | `(?=)`
-`negativeLook.behind(regexGroup)` | A group that cannot match before the main expression       | `(?<=)`
+`look.behind(regexGroup)`         | A group before the expression without including the result | `(?:)`
+`negativeLook.ahead(regexGroup)`  | A group that cannot match after the main expression        | `(?!=)`
 
 #### Non-capturing Group Callback Functions
 
