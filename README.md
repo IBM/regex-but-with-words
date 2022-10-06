@@ -176,7 +176,7 @@ exp
 
 // Matches
 
-/(?<=^behind)matching(?=ahead$)/g
+/(?:^behind)matching(?=ahead$)/g
 
 exp
   .look
@@ -186,7 +186,7 @@ exp
 
 // Matches
 
-/(?<=egg)plant/g
+/(?:egg)plant/g
 
 ```
 

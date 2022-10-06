@@ -1,5 +1,11 @@
 # Changelog
 
+## v 1.4.0
+
+- Now uses non-capturing group for lookbehind instead of actual lookbehind
+- No longer uses any lookbehind functions in child methods for firefox and safari compatability
+- when passing in a quantifier users can now add the string `*` as the max parameter. this allows users to create expressions with a minimum number and no fixed end
+
 ## v 1.1.1
 
 - Fixed an issue where regexToWords added an invalid `.` to the beinning of a quantified group expression and also invalid spacing.

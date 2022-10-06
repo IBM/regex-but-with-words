@@ -36,6 +36,15 @@ describe("regexButWithWords", () => {
           "it should return correct data and chain"
         );
       });
+      it("should add string to expression with range using *", () => {
+        let actualData = exp.quantifiedString("\\s", 3, "*").exp;
+        let expectedData = "\\s{3,}";
+        assert.deepEqual(
+          actualData,
+          expectedData,
+          "it should return correct data and chain"
+        );
+      });
     });
     beforeEach(() => {
       exp = new regexButWithWords();
@@ -442,18 +451,6 @@ describe("regexButWithWords", () => {
             assert.deepEqual(actualData, expectedData, "it should return data");
           });
         });
-        describe("behind", () => {
-          it("should return a negative lookbehind", () => {
-            let expectedData = /(?<!mite)frog/g;
-            let actualData = exp.negativeLook
-              .behind((exp) => {
-                exp.literal("mite");
-              })
-              .literal("frog")
-              .done("g");
-            assert.deepEqual(actualData, expectedData, "it should return data");
-          });
-        });
       });
     });
   });
@@ -461,7 +458,11 @@ describe("regexButWithWords", () => {
     beforeEach(() => (exp = new regexButWithWords()));
     it("should match character before dollar sign", () => {
       let expectedData = /.*(?=\$)/g;
-      let actualData = exp.any().anyNumber().look.ahead("$").done("g");
+      let actualData = exp
+        .any()
+        .anyNumber()
+        .look.ahead((exp) => exp.literal("$"))
+        .done("g");
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
   });
