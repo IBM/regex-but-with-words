@@ -390,6 +390,11 @@ describe("regexButWithWords", () => {
         let actualData = exp.set("1-5", 1, 5).done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
+      it("should return a quantified set with no max", () => {
+        let expectedData = /[1-5]{1}/g;
+        let actualData = exp.set("1-5", 1).done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
     });
     describe("negatedSet", () => {
       beforeEach(() => {
@@ -427,6 +432,11 @@ describe("regexButWithWords", () => {
       it("should return a quantified negated set", () => {
         let expectedData = /[^1-5]{1,5}/g;
         let actualData = exp.negatedSet("1-5", 1, 5).done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a quantified negated set with no max", () => {
+        let expectedData = /[^1-5]{1}/g;
+        let actualData = exp.negatedSet("1-5", 1).done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
       it("should return a quantified negated set with callback", () => {
