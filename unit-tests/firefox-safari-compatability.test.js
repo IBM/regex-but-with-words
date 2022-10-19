@@ -145,6 +145,23 @@ describe("firefox and safari compatability testing", () => {
         "it should create correct expression"
       );
     });
+    it("should create the correct expression for slz urlValidationExp", () => {
+      let actualExpression = wordify(
+        /(ftp|http|https):\/\/(www\.)?([^"/-]\.){2,4}\/[^ "]$/g
+      );
+      let runRbbwExp = doubleCheckExpression(actualExpression);
+      let expectedExpression = `exp.group((exp) => { exp.literal("ftp").or().literal("http").or().literal("https") }).literal("://").group((exp) => { exp.literal("www.") }).lazy().group((exp) => { exp.negatedSet("\\"/-").literal(".") }, 2, 4).literal("/").negatedSet(" \\"").stringEnd().done("g")`;
+      assert.deepEqual(
+        actualExpression,
+        expectedExpression,
+        "it should create correct expression"
+      );
+      assert.deepEqual(
+        runRbbwExp,
+        /(ftp|http|https):\/\/(www\.)?([^"/\-]\.){2,4}\/[^ "]$/g,
+        "it should create correct expression"
+      );
+    });
     it("should create the name validation expression for slz with wordify", () => {
       let expectedExpression = wordify(/^[A-z]([a-z0-9-]*[a-z0-9])?$/i);
       let actualExpression =
