@@ -214,6 +214,23 @@ exp
 
 ```
 
+Lookaround groups can also be quantified by passing in a `min` value or a `min` and `max` value:
+
+```js
+exp
+  .litral("hello")
+  .look
+  .ahead(exp => {
+    exp.literal("frog")
+  }, 2, 3)
+  .done("g)
+
+// matches
+
+/(hello(?=frog){2,3})/g
+```
+
+
 ---
 
 ### Other Regex But With Words Methods
