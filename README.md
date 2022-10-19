@@ -109,6 +109,8 @@ Name                 | Matches                                                  
     - (*ex. `.word(4)` will match exactly 4 word characters. Regex equivilant is `\w{4}`*)
 - If `min` and `max` are provided it will match any number of tokens within a range
     - (*ex. `.word(4,6)` will match four, five, or 6 word characters. Regex equivilant is `\w{4,6}`*)
+- the string `"*"` can be passed as `max` to match any number of the preceding token after the minimum is met
+    - (*ex. `.word(4, "*"` will match four or more word characters. Regex equivilant is `\w{4,}`*)
 - Methods marked with a `+` can accept the above parameters, but only if a single character is provided
 
 ---
@@ -117,11 +119,14 @@ Name                 | Matches                                                  
 
 Capturing groups. Each method can be chained with any method other than `done()`
 
-Name                      | Matches                                                                                            | Regex
---------------------------|----------------------------------------------------------------------------------------------------|-------
-`.group(regexGroup)`      | A group of characters. `.group("abc")` will match `abc` anywhere in a string                       | `()`
-`.set(regexGroup)`        | Match any one character from a set. `[abc]` will match `a` `b` or `c`                              | `[]`
-`.negatedSet(regexGroup)` | Match any one character not in a set. `[^abc]` will match any character that is not `a` `b` or `c` | `[^]`
+Name                             | Matches                                                                                                                        | Regex
+---------------------------------|--------------------------------------------------------------------------------------------------------------------------------|-------
+`.group(regexGroup)`             | A group of characters. `.group("abc")` will match `abc` anywhere in a string                                                   | `()`
+`.nonCapturingGroup(regexGroup)` | Match a group of characters without capturing `.nonCapturingGroup("abc").word()` will match a word character preceded by `abc` | `(?:)`
+`.set(regexGroup)`               | Match any one character from a set. `[abc]` will match `a` `b` or `c`                                                          | `[]`
+`.negatedSet(regexGroup)`        | Match any one character not in a set. `[^abc]` will match any character that is not `a` `b` or `c`                             | `[^]`
+
+**Groups now support `min` and `max` quantifiers.**
 
 #### Group Callback Functions
 
@@ -142,6 +147,25 @@ exp.group("\sfrog\s").done("g")
 
 // Matches
 /(\sfrog\s)/g
+```
+
+Groups can also be quantified by passing in a `min` value or a `min` and `max` value:
+
+```js
+exp
+  .group(exp => {
+    exp.whitespace().or().literal("space")
+  }, 2)
+  .done("g")
+
+// Matches
+
+/(\s|space){2}/g
+
+exp.group("\sfrog\s", 2, 3).done("g")
+
+// Matches
+/(\sfrog\s){2,3}/g
 ```
 
 ---

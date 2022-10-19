@@ -359,6 +359,17 @@ describe("regexButWithWords", () => {
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
     });
+    describe("nonCapturingGroup", () => {
+      it("should return a nonCapturingGroup", () => {
+        let actualData = exp
+          .nonCapturingGroup((exp) => {
+            exp.literal("word");
+          })
+          .done("g");
+        let expectedData = /(?:word)/g;
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+    });
     describe("set", () => {
       it("should return a set with callback", () => {
         let expectedData = /[\s\n]/g;
@@ -372,6 +383,11 @@ describe("regexButWithWords", () => {
       it("should return a correct range", () => {
         let expectedData = /[1-5]/g;
         let actualData = exp.set("1-5").done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a quantified set", () => {
+        let expectedData = /[1-5]{1,5}/g;
+        let actualData = exp.set("1-5", 1, 5).done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
     });
@@ -406,6 +422,24 @@ describe("regexButWithWords", () => {
       it("should return a negated character set and escape characters", () => {
         let expectedData = /[^A-z-]/g;
         let actualData = exp.negatedSet("A-z-").done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a quantified negated set", () => {
+        let expectedData = /[^1-5]{1,5}/g;
+        let actualData = exp.negatedSet("1-5", 1, 5).done("g");
+        assert.deepEqual(actualData, expectedData, "it should return data");
+      });
+      it("should return a quantified negated set with callback", () => {
+        let expectedData = /[^1-5]{1,5}/g;
+        let actualData = exp
+          .negatedSet(
+            (exp) => {
+              exp.literal("1-5");
+            },
+            1,
+            5
+          )
+          .done("g");
         assert.deepEqual(actualData, expectedData, "it should return data");
       });
     });

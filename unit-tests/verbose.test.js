@@ -58,6 +58,11 @@ describe("verbose", () => {
       let expectedData = `exp.group((exp) => { exp.literal("word") }, 3).done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
+    it("should return a quantified non-capturing group", () => {
+      let actualData = wordify(/(?:word){3}/g);
+      let expectedData = `exp.nonCapturingGroup((exp) => { exp.literal("word") }, 3).done("g")`;
+      assert.deepEqual(actualData, expectedData, "it should return data");
+    });
     it("should return a quantified capturing group with max", () => {
       let actualData = wordify(/(word){3,4}/g);
       let expectedData = `exp.group((exp) => { exp.literal("word") }, 3, 4).done("g")`;
@@ -103,15 +108,19 @@ describe("verbose", () => {
       let expectedData = `exp.literal("frog").negativeLook.ahead((exp) => { exp.literal("mite") }).done("g")`;
       assert.deepEqual(actualData, expectedData, "it should return data");
     });
-    it("should return a look.behind", () => {
-      let actualData = wordify(/(?<=mite)frog/g);
-      let expectedData = `exp.look.behind((exp) => { exp.literal("mite") }).literal("frog").done("g")`;
-      assert.deepEqual(actualData, expectedData, "it should return data");
+    it("should throw an error, lookbehind is no longer supported", () => {
+      let task = () => wordify(/(?<=mite)frog/g);
+      assert.throws(
+        task,
+        "To maintain browser compatability with safari and firefox negative lookbehind and lookbehind are not supported. Try using a non-capturing group (?:) instead."
+      );
     });
-    it("should return a negative lookahead", () => {
-      let actualData = wordify(/(?<!mite)frog/g);
-      let expectedData = `exp.negativeLook.behind((exp) => { exp.literal("mite") }).literal("frog").done("g")`;
-      assert.deepEqual(actualData, expectedData, "it should return data");
+    it("should throw an error, lookbehind is no longer supported", () => {
+      let task = () => wordify(/(?<!mite)frog/g);
+      assert.throws(
+        task,
+        "To maintain browser compatability with safari and firefox negative lookbehind and lookbehind are not supported. Try using a non-capturing group (?:) instead."
+      );
     });
     it("should correctly return beginning and end of string", () => {
       let actualData = wordify(/^--?[a-z-]+\s\S+(\s--?[a-z-]+\s\S+)*$/g);
