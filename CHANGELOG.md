@@ -1,5 +1,9 @@
 # Changelog
 
+## v 1.5.1
+
+- Fixed an issue where using group with a quantifier of `*` for max parameter would cause the symbol to be returned instead of `""`
+
 ## v 1.4.0
 
 - Now uses non-capturing group for lookbehind instead of actual lookbehind

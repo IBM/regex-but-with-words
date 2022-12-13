@@ -108,6 +108,36 @@ describe("firefox and safari compatability testing", () => {
         "it should create correct expression"
       );
     });
+    it("should create rbbw for quantified negated set with * as max", () => {
+      let actualExpression = new RegexButWithWords()
+        .group((exp) => {
+          exp.literal("ftp").or().literal("http").literal("s").lazy();
+        })
+        .literal("://")
+        .group("www.")
+        .lazy()
+        .group(
+          (exp) => {
+            exp.negatedSet('"\\/').oneOrMore().literal(".");
+          },
+          2,
+          "*"
+        )
+        .negatedSet('"\\/.')
+        .oneOrMore()
+        .literal("/")
+        .negatedSet(' "')
+        .anyNumber()
+        .stringEnd()
+        .done("g");
+      let expectedExpression =
+        /(ftp|https?):\/\/(www\.)?([^"\/]+\.){2,}[^"\/.]+\/[^ "]*$/g;
+      assert.deepEqual(
+        actualExpression,
+        expectedExpression,
+        "it should return expected expression"
+      );
+    });
   });
   describe("verbose", () => {
     function doubleCheckExpression(actualExpression) {
