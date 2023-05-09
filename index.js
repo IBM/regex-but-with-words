@@ -1,3 +1,4 @@
+"use strict";
 const RegexButWithWords = require("./lib/expressions");
 const verbose = require("./lib/verbose").toString;
 const sanityCheck = require("./lib/sanitize").isSane;

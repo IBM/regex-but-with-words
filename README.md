@@ -2,6 +2,8 @@
 
 `regex-but-with-words` is a lightweight Regular Expression visualization package with no user dependecies that allows users to chain a verbose function to create a Regular Expression. It can also be used to create a verbose version of an existing regular expression for reference.
 
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7349/badge)](https://bestpractices.coreinfrastructure.org/projects/7349)
+
 ## Installing 
 
 ```shell
