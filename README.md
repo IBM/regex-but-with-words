@@ -327,6 +327,15 @@ All files       |     100 |      100 |     100 |     100 | 🏆
 
 ---
 
+### Bugs
+
+- A detailed title describing the issue beginning with `[BUG]` and the current release. For sprint one, filing a bug would have the title `[BUG][0.1.0] <issue title>`
+- Steps to recreate said bug (including non-sensitive variables)
+- (optional) Corresponding output logs **as text or as part of a code block**
+- Tag the issue with the `bug` label 
+
+---
+
 ## Contributing
 
 If you have any questions or issues you can create a new [issue here][issues]. See the full contribution guidelines [here](./CONTRIBUTING.md). 
