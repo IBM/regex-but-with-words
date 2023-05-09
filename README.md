@@ -8,7 +8,7 @@
 npm i regex-but-with-words
 ```
 
-## Example Usage
+## Usage
 
 ### Regex But With Words
 
