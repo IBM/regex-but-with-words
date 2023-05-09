@@ -1,6 +1,6 @@
 {
   "name": "regex-but-with-words",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "a lightweight package with no user dependecies that allows users to chain a verbose function to create a Regular Expression. It can also be used to create a verbose version of an existing regular expression for reference",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "coverage": "npx nyc npm run test"
   },
   "author": "Jennifer Valle",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
