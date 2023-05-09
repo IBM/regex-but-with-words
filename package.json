@@ -1,6 +1,6 @@
 {
   "name": "regex-but-with-words",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "description": "a lightweight package with no user dependecies that allows users to chain a verbose function to create a Regular Expression. It can also be used to create a verbose version of an existing regular expression for reference",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,16 @@
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM/regex-but-with-words.git"
+  },
+  "keywords": [
+    "regex",
+    "regexp",
+    "regular expressions",
+    "visualization",
+    "browser"
+  ]
 }
