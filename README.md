@@ -298,6 +298,15 @@ exp
 
 ---
 
+## Automated Testing
+
+This module uses [mocha](https://mochajs.org/) and [chai](https://www.chaijs.com/) to run automated tests. 
+
+To run the unit tests, use the command
+```shell
+npm run test
+```
+
 ## Code Test Coverage
 
 This module uses [nyc](https://www.npmjs.com/package/nyc) for unit test coverage.
